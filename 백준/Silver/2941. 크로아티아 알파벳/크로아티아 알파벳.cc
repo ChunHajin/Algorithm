@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -7,49 +8,19 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string inputText;
-    cin >> inputText;
+    string s;
+    cin >> s;
 
-    int count = 1;
+    vector<string> cr = {"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="};
 
-    for (int i=1; i<inputText.size(); i++) {
-        if (inputText[i] == '=') {
-            int temp = i;
-            temp--;
-            if (inputText[temp] == 'c' || inputText[temp] == 's') {
-                count -= 1;
-            }
-            if (inputText[temp] == 'z') {
-                temp--;
-                if (inputText[temp] == 'd') {
-                    count -= 2;
-                }
-                else {
-                    count -= 1;
-                }
-            }
+    for (string x : cr) {
+        size_t pos;
+        while ((pos = s.find(x)) != string::npos) {
+            s.replace(pos, x.length(), "*");
         }
-
-        else if (inputText[i] == '-') {
-            int temp = i;
-            temp--;
-            if (inputText[temp] == 'c' || inputText[temp] == 'd') {
-                count -= 1;
-            }
-        }
-
-        else if (inputText[i] == 'j') {
-            int temp = i;
-            temp--;
-            if (inputText[temp] == 'l' || inputText[temp] == 'n') {
-                count -= 1;
-            }
-        }
-
-        count++;
     }
 
-    cout << count << "\n";
+    cout << s.size();
 
     return 0;
 }
